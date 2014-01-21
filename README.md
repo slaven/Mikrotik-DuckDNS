@@ -1,4 +1,2 @@
-RouterOS-DuckDNS
+Mikrotik RouterOS v6.x DuckDNS update script
 ================
-
-Mikrotik RouterOS DuckDNS update script
