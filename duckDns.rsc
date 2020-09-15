@@ -9,7 +9,7 @@
 
 # Do not edit below
 :global duckDnsHost "$duckDnsSubdomain.duckdns.org"
-:global duckDnsIP [:resolve $duckDnsHost];
+:global duckDnsIP [:resolve server=8.8.8.8 $duckDnsHost];   # specify DNS server so if you have a local DNS entry for the URL it doesn't affect outcome.
 :global duckDnsNewIP [ /ip address get [/ip address find interface=$duckDnsInterface ] address ]
 
 :if ([ :typeof $duckDnsNewIP ] = nil ) do={
@@ -23,7 +23,7 @@
 
     :if ($duckDnsIP != $duckDnsNewIP) do={
         :log info ("DuckDNS: Old IP: $duckDnsIP -> New IP: $duckDnsNewIP")
-        :local str "https://www.duckdns.org/update?domains=$duckDnsSubdomain&token=$duckDnsToken&ip=$duckDnsNewIP"
+        :local str "https://www.duckdns.org/update\?domains=$duckDnsSubdomain&token=$duckDnsToken&ip=$duckDnsNewIP"
         /tool fetch url=$str mode=https dst-path="/DuckDNS.$duckDnsHost"
         :delay 1
         :local str [/file find name="DuckDNS.$duckDnsHost"];
